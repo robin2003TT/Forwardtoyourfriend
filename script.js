@@ -1,16 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let video = document.createElement("video");
-    video.src = "vid.mp4";
-    video.autoplay = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.style.width = "100%";
-    video.style.height = "100%";
-    video.style.objectFit = "cover";
-
+    let video = document.getElementById("rickroll-video");
     let audio = new Audio("rik.mp3");
-
-    document.body.appendChild(video);
 
     // Function to play media
     function playMedia() {
