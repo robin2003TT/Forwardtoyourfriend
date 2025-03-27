@@ -22,7 +22,7 @@
     </style>
 </head>
 <body>
-    <video id="rickroll" autoplay muted loop>
+    <video id="rickroll" loop>
         <source src="vid.mp4" type="video/mp4">
     </video>
 
@@ -30,16 +30,21 @@
         document.addEventListener("DOMContentLoaded", () => {
             let video = document.getElementById("rickroll");
 
-            // Try autoplay
-            video.play().then(() => {
-                // Unmute after play starts (fix for Chrome/Firefox)
-                setTimeout(() => video.muted = false, 500);
-            }).catch(() => {
-                // If blocked, wait for user click
-                document.body.addEventListener("click", () => {
-                    video.muted = false;
-                    video.play();
-                }, { once: true });
+            function playVideo() {
+                video.muted = false; // Ensure sound plays
+                video.play().catch(() => {
+                    document.body.addEventListener("click", () => {
+                        video.muted = false;
+                        video.play();
+                    }, { once: true });
+                });
+            }
+
+            playVideo();
+
+            // If video pauses for any reason, restart it
+            video.addEventListener("pause", () => {
+                setTimeout(() => playVideo(), 100);
             });
         });
     </script>
