@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Funny Video</title>
+    <title>Minecraft for free</title>
     <style>
         body {
             margin: 0;
@@ -23,6 +23,26 @@
     </style>
 </head>
 <body>
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&playlist=dQw4w9WgXcQ" allow="autoplay"></iframe>
+    <iframe id="rickroll" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&autoplay=1&loop=1&playlist=dQw4w9WgXcQ" allow="autoplay"></iframe>
+
+    <script>
+        // Force autoplay if blocked
+        function forcePlay() {
+            let iframe = document.getElementById("rickroll");
+            let player = new YT.Player(iframe, {
+                events: {
+                    "onReady": function(event) {
+                        event.target.playVideo();
+                    }
+                }
+            });
+        }
+
+        // Load YouTube API and force play
+        let tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
+        window.onYouTubeIframeAPIReady = forcePlay;
+    </script>
 </body>
 </html>
