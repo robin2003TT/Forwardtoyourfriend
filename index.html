@@ -4,9 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surprise!</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
-    <video id="rickroll-video" src="vid.mp4" autoplay loop playsinline></video>
+    <video id="rickroll-video" autoplay loop playsinline muted>
+        <source src="vid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        // Ensure autoplay works
+        let video = document.getElementById("rickroll-video");
+        video.play().catch(error => {
+            console.error("Autoplay blocked:", error);
+        });
+    </script>
 </body>
 </html>
