@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft for Free</title>
+    <title>Free Minecraft</title>
     <style>
         body {
             margin: 0;
@@ -22,16 +22,22 @@
     </style>
 </head>
 <body>
-    <video id="rickroll" autoplay loop>
+    <video id="rickroll" autoplay muted loop>
         <source src="vid.mp4" type="video/mp4">
     </video>
 
     <script>
-        // Try forcing play on load
         document.addEventListener("DOMContentLoaded", () => {
             let video = document.getElementById("rickroll");
-            video.play().catch(() => {
+
+            // Try autoplay
+            video.play().then(() => {
+                // Unmute after play starts (fix for Chrome/Firefox)
+                setTimeout(() => video.muted = false, 500);
+            }).catch(() => {
+                // If blocked, wait for user click
                 document.body.addEventListener("click", () => {
+                    video.muted = false;
                     video.play();
                 }, { once: true });
             });
