@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minecraft for free</title>
+    <title>Minecraft for Free</title>
     <style>
         body {
             margin: 0;
@@ -15,34 +15,27 @@
             height: 100vh;
             overflow: hidden;
         }
-        iframe {
+        video {
             width: 100%;
             height: 100%;
-            border: none;
         }
     </style>
 </head>
 <body>
-    <iframe id="rickroll" src="https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1&autoplay=1&loop=1&playlist=dQw4w9WgXcQ" allow="autoplay"></iframe>
+    <video id="rickroll" autoplay loop>
+        <source src="vid.mp4" type="video/mp4">
+    </video>
 
     <script>
-        // Force autoplay if blocked
-        function forcePlay() {
-            let iframe = document.getElementById("rickroll");
-            let player = new YT.Player(iframe, {
-                events: {
-                    "onReady": function(event) {
-                        event.target.playVideo();
-                    }
-                }
+        // Try forcing play on load
+        document.addEventListener("DOMContentLoaded", () => {
+            let video = document.getElementById("rickroll");
+            video.play().catch(() => {
+                document.body.addEventListener("click", () => {
+                    video.play();
+                }, { once: true });
             });
-        }
-
-        // Load YouTube API and force play
-        let tag = document.createElement("script");
-        tag.src = "https://www.youtube.com/iframe_api";
-        document.head.appendChild(tag);
-        window.onYouTubeIframeAPIReady = forcePlay;
+        });
     </script>
 </body>
 </html>
