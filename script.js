@@ -7,12 +7,12 @@ document.addEventListener("DOMContentLoaded", function () {
     video.style.width = "100%";
     video.style.height = "100%";
     video.style.objectFit = "cover";
-    
+
     let audio = new Audio("rik.mp3");
 
     document.body.appendChild(video);
 
-    // Force play when user interacts
+    // Function to play media
     function playMedia() {
         video.muted = false;
         video.play().catch(error => console.error("Video autoplay blocked:", error));
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.removeEventListener("click", playMedia);
     }
 
-    // Try autoplay, but allow click if blocked
+    // Try autoplay, allow click if blocked
     playMedia();
     document.addEventListener("click", playMedia);
 });
