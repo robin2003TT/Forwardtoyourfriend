@@ -16,14 +16,16 @@
             overflow: hidden;
         }
         video {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
-    <video id="rickroll" loop>
+    <video id="rickroll" autoplay muted loop>
         <source src="vid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
     </video>
 
     <script>
@@ -31,7 +33,7 @@
             let video = document.getElementById("rickroll");
 
             function playVideo() {
-                video.muted = false; // Ensure sound plays
+                video.muted = false;
                 video.play().catch(() => {
                     document.body.addEventListener("click", () => {
                         video.muted = false;
@@ -40,11 +42,17 @@
                 });
             }
 
+            // Try to play immediately
             playVideo();
 
-            // If video pauses for any reason, restart it
+            // If video pauses or gets blocked, restart it
             video.addEventListener("pause", () => {
                 setTimeout(() => playVideo(), 100);
+            });
+
+            // Log errors to check if video is not found
+            video.addEventListener("error", () => {
+                console.error("Error loading video. Check if 'vid.mp4' exists and is in the correct folder.");
             });
         });
     </script>
